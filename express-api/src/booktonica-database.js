@@ -31,8 +31,16 @@ class BooktonicaDatabase {
 
   getAllBooks() {
     return this.db.any(
-      `SELECT b.*, a.name AS author_name FROM books b 
-        INNER JOIN authors a on a.id = b.author_id`
+      `SELECT 
+        b.id,
+        b.title,
+        b.subtitle,
+        b.summary,
+        b.cover_image_url,
+        to_char(b.publication_date, 'DD Mon YYYY') as publication_date, 
+        a.name AS author_name FROM books b 
+        INNER JOIN authors a on a.id = b.author_id
+        ORDER BY b.publication_date DESC`
     );
   }
 }

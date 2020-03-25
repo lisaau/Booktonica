@@ -10,9 +10,19 @@ import {
   Button
 } from "reactstrap";
 
+/**
+ * Learn more about reactstrap Card component
+ * https://reactstrap.github.io/components/card/
+ */
 class BookCard extends Component {
   render() {
-    const { cover_image_url, summary, title, author_name } = this.props.book;
+    const {
+      cover_image_url,
+      summary,
+      title,
+      author_name,
+      publication_date
+    } = this.props.book;
     return (
       <Col xs="4">
         <Card>
@@ -24,7 +34,9 @@ class BookCard extends Component {
           <CardBody>
             <CardTitle>{title}</CardTitle>
             <CardSubtitle>{author_name}</CardSubtitle>
-            <CardText>{summary}</CardText>
+            <CardText>
+              <i>{publication_date}</i> - {summary}
+            </CardText>
           </CardBody>
         </Card>
       </Col>

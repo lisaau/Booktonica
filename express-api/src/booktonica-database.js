@@ -30,7 +30,10 @@ class BooktonicaDatabase {
   }
 
   getAllBooks() {
-    return this.db.any('SELECT * FROM books');
+    return this.db.any(
+      `SELECT b.*, a.name AS author_name FROM books b 
+        INNER JOIN authors a on a.id = b.author_id`
+    );
   }
 }
 

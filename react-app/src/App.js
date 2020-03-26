@@ -17,11 +17,8 @@ class App extends Component {
 
   componentDidMount() {
     getAllBooks().then(books => this.setState({ books: books }));
-    // this.state.books.map(book => {
-    //   return getBookListsofBook(book.id).then(booklist => this.setState({booklist: booklist}))
-    // })
-    // getBookListsofBook(this.props.bookID).then(booklist => this.setState({booklist: booklist}))
   }
+  
   render() {
     return (
       <div className="App">

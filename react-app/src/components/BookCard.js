@@ -36,7 +36,10 @@ class BookCard extends Component {
           <CardBody>
             <CardTitle>{title}</CardTitle>
             <CardSubtitle>{author_name}</CardSubtitle>
-            <BookListBadges bookID={id}/>
+            <BookListBadges 
+              bookID={id} 
+              displayList={() => this.props.displayList()}
+              />
             <CardText>
               <i>{publication_date}</i> - {summary}
             </CardText>

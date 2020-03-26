@@ -29,7 +29,9 @@ class App extends Component {
           displayListView={this.state.listView} 
           displayAll={() => this.setState({listView: false})}/>
         <BookCardList 
-          books={this.state.books} />
+          books={this.state.books} 
+          displayList={() => this.setState({listView: true})}
+          />
       </div>
     );
   }

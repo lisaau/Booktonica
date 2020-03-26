@@ -7,7 +7,11 @@ class BookCardList extends Component {
     return (
       <Row>
         {this.props.books.map(book => (
-          <BookCard key={book.id} book={book} />
+          <BookCard 
+            key={book.id} 
+            book={book} 
+            displayList={() => this.props.displayList()}
+            />
         ))}
       </Row>
     );

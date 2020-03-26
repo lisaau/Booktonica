@@ -7,10 +7,10 @@ import {
 
  class BookListBadges extends Component {
     constructor(props) {
-    super(props);
-    this.state = {
-        booklist: []
-    }
+        super(props);
+        this.state = {
+            booklist: []
+        }
     }
 
     componentDidMount() {
@@ -20,9 +20,15 @@ import {
     render() { 
         let buttonMapper = 
             this.state.booklist.map(booklistName => {
-                return <Button color="primary" outline>
-                {booklistName.list_name} <Badge color="secondary"></Badge>
-                </Button>
+                return <Button 
+                    color="primary" 
+                    outline 
+                    onClick={(event) => {
+                        event.preventDefault();
+                        this.props.displayList()
+                    }}>
+                    {booklistName.list_name} <Badge color="secondary"></Badge>
+                    </Button>
             })
             
         return (

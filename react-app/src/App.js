@@ -10,8 +10,8 @@ class App extends Component {
     super(props);
     this.state = {
       books: [],
-      booklist: [],
-      listView: false
+      listView: false,
+      currentBooklistName: ''
     };
   }
 
@@ -20,18 +20,21 @@ class App extends Component {
   }
   
   render() {
+    console.log("app.js state: ", this.state);
+    
     return (
       <div className="App">
         <Header 
           books={this.state.books} 
-          displayListView={this.state.listView}/>
+          displayListView={this.state.listView} 
+          booklistName={this.state.currentBooklistName}/>
         <SeeAllBooksButton 
           displayListView={this.state.listView} 
           displayAll={() => this.setState({listView: false})}/>
         <BookCardList 
           books={this.state.books} 
-          displayList={() => this.setState({listView: true})}
-          />
+          displayList={() => this.setState({listView: true})} 
+          updateCurrentBooklistName={(booklistName) => this.setState({currentBooklistName: booklistName})}/>
       </div>
     );
   }

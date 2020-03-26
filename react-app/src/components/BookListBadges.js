@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { getBookListsofBook } from "../helpers/booktonica-api-fetcher";
 import {
     Badge,
-    Button
   } from "reactstrap";
 
  class BookListBadges extends Component {
@@ -20,15 +19,16 @@ import {
     render() { 
         let buttonMapper = 
             this.state.booklist.map(booklistName => {
-                return <Button 
-                    color="primary" 
-                    outline 
-                    onClick={(event) => {
-                        event.preventDefault();
-                        this.props.displayList()
-                    }}>
-                    {booklistName.list_name} <Badge color="secondary"></Badge>
-                    </Button>
+                return <Badge 
+                        color="primary" 
+                        pill
+                        style={{margin:'0.1em', fontSize:'15px'}}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            this.props.displayList();
+                            this.props.updateCurrentBooklistName(booklistName.list_name);
+                        }}>
+                            {booklistName.list_name}</Badge>
             })
             
         return (

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
  class Header extends Component {
     render() { 
+        console.log(this.props);
+        
         let displayAllMessage = <>Showing All {this.props.books.length} Books</>;
-        let displayListViewMessage = 'Viewing <BOOKLISTNAME>';
+        let displayListViewMessage = <>Viewing {this.props.booklistName}</>;
         let displayMessage = this.props.displayListView ? displayListViewMessage : displayAllMessage;
         return  (
-           <div>{displayMessage}</div>
+           <h1>{displayMessage}</h1>
         )
     }
  }

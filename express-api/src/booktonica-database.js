@@ -29,6 +29,7 @@ class BooktonicaDatabase {
     return this.db.one('SELECT count(*) FROM books').then(r => r.count);
   }
 
+  // ordered by id of book
   getAllBooks() {
     return this.db.any(
       `SELECT 
@@ -40,7 +41,19 @@ class BooktonicaDatabase {
         to_char(b.publication_date, 'DD Mon YYYY') as publication_date, 
         a.name AS author_name FROM books b 
         INNER JOIN authors a on a.id = b.author_id
-        ORDER BY b.publication_date DESC`
+        ORDER BY b.id`
+    );
+  }
+
+  getBookListsofBook(bookID) {
+    return this.db.any(
+      `SELECT 
+    	b.title,
+    	bl.list_name
+    	FROM booklist bl
+    		JOIN books_in_booklist bib ON bl.id = bib.booklist_id
+    		JOIN books b ON bib.book_id = b.id
+    	WHERE b.id = ${bookID}`
     );
   }
 }

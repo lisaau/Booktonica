@@ -40,6 +40,13 @@ api.get('/books', (_unused, res) =>
   db.getAllBooks().then(books => res.send(books))
 );
 
+// GET /booklist
+// takes bookID from body and returns a list of all the booklists the book is in
+api.get('/booklists', (req, res) => {
+  let bookID = parseInt(req.query.bookID);
+  db.getBookListsofBook(bookID).then(booklists => res.send(booklists))
+});
+
 // sanityCheck will make sure the DB is working before listening
 db.sanityCheck().then(() => {
   api.listen(PORT, () => {

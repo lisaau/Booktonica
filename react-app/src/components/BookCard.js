@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import BookListBadges from './BookListBadges'
 import {
   Col,
   Card,
@@ -20,8 +21,10 @@ class BookCard extends Component {
       summary,
       title,
       author_name,
-      publication_date
+      publication_date,
+      id
     } = this.props.book;
+    
     return (
       <Col xs="4">
         <Card>
@@ -33,6 +36,7 @@ class BookCard extends Component {
           <CardBody>
             <CardTitle>{title}</CardTitle>
             <CardSubtitle>{author_name}</CardSubtitle>
+            <BookListBadges bookID={id}/>
             <CardText>
               <i>{publication_date}</i> - {summary}
             </CardText>

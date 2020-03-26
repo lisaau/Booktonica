@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { getAllBooks } from "./helpers/booktonica-api-fetcher";
+import Header from "./components/Header";
 import BookCardList from "./components/BookCardList";
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header books={this.state.books}/>
         <BookCardList books={this.state.books} />
       </div>
     );

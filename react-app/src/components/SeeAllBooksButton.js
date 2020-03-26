@@ -7,7 +7,8 @@ import {
     render() { 
         let btn = <Button onClick={(event) => {
                     event.preventDefault();
-                    this.props.displayAll()}}>
+                    this.props.displayAll();
+                    this.props.updateBooks()}}>
                     See All Books
                 </Button> 
         // only show the button if we are viewing a list of books

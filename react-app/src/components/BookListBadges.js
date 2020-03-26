@@ -27,15 +27,13 @@ import {
                             event.preventDefault();
                             this.props.displayList();
                             this.props.updateCurrentBooklistName(booklistName.list_name);
+                            this.props.updateBooks(booklistName.id);
                         }}>
                             {booklistName.list_name}</Badge>
             })
             
         return (
             <div>
-                {/* <Button color="primary" outline>
-                PUT LISTS HERE <Badge color="secondary"></Badge>
-                </Button> */}
                 {buttonMapper} 
             </div>
         )

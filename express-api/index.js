@@ -47,9 +47,11 @@ api.get('/booklists', (req, res) => {
   db.getBookListsofBook(bookID).then(booklists => res.send(booklists))
 });
 
-api.get('/booklistbooks', (req, res) => {
+api.get('/booklistbooks', (req, res, next) => {
   let booklistID = parseInt(req.query.booklistID);
-  db.getBooksFromBooklist(booklistID).then(books => res.send(books))
+  console.log(req.query);
+  
+  db.getBooksFromBooklist(booklistID).then(books => res.send(books)).catch(next)
 });
 
 // sanityCheck will make sure the DB is working before listening

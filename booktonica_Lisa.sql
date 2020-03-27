@@ -218,6 +218,8 @@ COPY public.authors (id, name, date_of_death, homepage, headshot_url, date_of_bi
 
 COPY public.booklist (id, list_name, created_on, description, name_of_creator) FROM stdin;
 1	Lisa's List	2020-03-26 09:48:49.403586	To read during shelter in place	Lisa
+2	List 2	2020-03-26 10:15:13.108976	\N	Lisa
+3	P. Robinson Books	2020-03-27 09:27:21.995501	Books by Phoebe Robinson	Lisa
 \.
 
 
@@ -245,6 +247,12 @@ COPY public.books (id, title, publication_date, author_id, cover_image_url, summ
 COPY public.books_in_booklist (id, booklist_id, book_id, added_at) FROM stdin;
 1	1	4	2020-03-26 09:49:15.268965
 2	1	5	2020-03-26 09:49:15.268965
+3	1	6	2020-03-26 10:11:14.972765
+4	2	5	2020-03-26 10:15:52.505697
+5	2	8	2020-03-26 10:15:52.505697
+6	2	7	2020-03-27 09:16:08.805037
+8	3	7	2020-03-27 09:27:54.188792
+9	3	3	2020-03-27 09:27:54.188792
 \.
 
 
@@ -259,7 +267,7 @@ SELECT pg_catalog.setval('public.authors_id_seq', 7, true);
 -- Name: booklist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl619_2
 --
 
-SELECT pg_catalog.setval('public.booklist_id_seq', 1, true);
+SELECT pg_catalog.setval('public.booklist_id_seq', 3, true);
 
 
 --
@@ -273,7 +281,7 @@ SELECT pg_catalog.setval('public.books_id_seq', 9, true);
 -- Name: books_in_booklist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl619_2
 --
 
-SELECT pg_catalog.setval('public.books_in_booklist_id_seq', 2, true);
+SELECT pg_catalog.setval('public.books_in_booklist_id_seq', 9, true);
 
 
 --
@@ -290,6 +298,14 @@ ALTER TABLE ONLY public.authors
 
 ALTER TABLE ONLY public.booklist
     ADD CONSTRAINT booklist_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: books_in_booklist books_in_booklist_book_id_booklist_id_key; Type: CONSTRAINT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.books_in_booklist
+    ADD CONSTRAINT books_in_booklist_book_id_booklist_id_key UNIQUE (book_id, booklist_id);
 
 
 --

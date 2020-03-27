@@ -16,3 +16,12 @@
 .card-text {
   padding-top: 1em;
 }
+
+.Header {
+  text-align: center;
+  margin-bottom: 3%;
+}
+
+.SeeAllBooksButton {
+  margin-bottom: 3%;
+}

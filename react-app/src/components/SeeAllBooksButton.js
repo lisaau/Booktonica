@@ -5,12 +5,14 @@ import {
 
  class SeeAllBooksButton extends Component {
     render() { 
-        let btn = <Button onClick={(event) => {
-                    event.preventDefault();
-                    this.props.displayAll();
-                    this.props.updateBooks()}}>
+        let btn = <center><Button 
+                    className="SeeAllBooksButton"
+                    onClick={(event) => {
+                        event.preventDefault();
+                        this.props.displayAll();
+                        this.props.updateBooks()}}>
                     See All Books
-                </Button> 
+                </Button> </center>
         // only show the button if we are viewing a list of books
         let revertButton = this.props.displayListView ? btn : null;
         return revertButton; 

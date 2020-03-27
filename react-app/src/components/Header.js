@@ -7,7 +7,7 @@ import React, { Component } from "react";
         let displayListViewMessage = <>Viewing {this.props.booklistName}</>;
         let displayMessage = this.props.displayListView ? displayListViewMessage : displayAllMessage;
         return  (
-           <h1>{displayMessage}</h1>
+           <h1 className="Header">{displayMessage}</h1>
         )
     }
  }

@@ -25,3 +25,9 @@
 .SeeAllBooksButton {
   margin-bottom: 3%;
 }
+
+.BooklistBadge {
+  margin: 0.1em;
+  font-size: 15px;
+  cursor: pointer;
+}

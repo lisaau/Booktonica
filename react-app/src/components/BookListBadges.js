@@ -22,7 +22,7 @@ import {
                 return <Badge 
                         color="primary" 
                         pill
-                        style={{margin:'0.1em', fontSize:'15px'}}
+                        className='BooklistBadge'
                         onClick={(event) => {
                             event.preventDefault();
                             this.props.displayList();

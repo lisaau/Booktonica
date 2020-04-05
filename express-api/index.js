@@ -47,7 +47,9 @@ api.get('/booklists', (req, res) => {
   db.getBookListsofBook(bookID).then(booklists => res.send(booklists))
 });
 
-api.get('/booklistbooks', (req, res, next) => {
+// GET /booklist/books
+// takes booklistID from body and returns all the books that are in that booklist
+api.get('/booklist/books', (req, res, next) => {
   let booklistID = parseInt(req.query.booklistID);
   console.log(req.query);
   

@@ -33,7 +33,7 @@ export function getBookListsofBook(bookID) {
 }
 
 export function getBooksFromBooklist(booklistID) {
-  return fetch(`/booklistbooks?booklistID=${booklistID}`, {
+  return fetch(`/booklist/books?booklistID=${booklistID}`, {
     headers: {
       // This header is needed or React app won't proxy it along to Express
       Accept: "application/json"

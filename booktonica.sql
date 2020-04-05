@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: authors; Type: TABLE; Schema: public; Owner: bill
+-- Name: authors; Type: TABLE; Schema: public; Owner: tpl619_2
 --
 
 CREATE TABLE public.authors (
@@ -34,10 +34,10 @@ CREATE TABLE public.authors (
 );
 
 
-ALTER TABLE public.authors OWNER TO bill;
+ALTER TABLE public.authors OWNER TO tpl619_2;
 
 --
--- Name: authors_id_seq; Type: SEQUENCE; Schema: public; Owner: bill
+-- Name: authors_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl619_2
 --
 
 CREATE SEQUENCE public.authors_id_seq
@@ -49,17 +49,54 @@ CREATE SEQUENCE public.authors_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.authors_id_seq OWNER TO bill;
+ALTER TABLE public.authors_id_seq OWNER TO tpl619_2;
 
 --
--- Name: authors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bill
+-- Name: authors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl619_2
 --
 
 ALTER SEQUENCE public.authors_id_seq OWNED BY public.authors.id;
 
 
 --
--- Name: books; Type: TABLE; Schema: public; Owner: bill
+-- Name: booklist; Type: TABLE; Schema: public; Owner: tpl619_2
+--
+
+CREATE TABLE public.booklist (
+    id integer NOT NULL,
+    list_name text NOT NULL,
+    created_on timestamp without time zone DEFAULT now(),
+    description text,
+    name_of_creator text NOT NULL
+);
+
+
+ALTER TABLE public.booklist OWNER TO tpl619_2;
+
+--
+-- Name: booklist_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl619_2
+--
+
+CREATE SEQUENCE public.booklist_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.booklist_id_seq OWNER TO tpl619_2;
+
+--
+-- Name: booklist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl619_2
+--
+
+ALTER SEQUENCE public.booklist_id_seq OWNED BY public.booklist.id;
+
+
+--
+-- Name: books; Type: TABLE; Schema: public; Owner: tpl619_2
 --
 
 CREATE TABLE public.books (
@@ -73,10 +110,10 @@ CREATE TABLE public.books (
 );
 
 
-ALTER TABLE public.books OWNER TO bill;
+ALTER TABLE public.books OWNER TO tpl619_2;
 
 --
--- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner: bill
+-- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl619_2
 --
 
 CREATE SEQUENCE public.books_id_seq
@@ -88,31 +125,81 @@ CREATE SEQUENCE public.books_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.books_id_seq OWNER TO bill;
+ALTER TABLE public.books_id_seq OWNER TO tpl619_2;
 
 --
--- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: bill
+-- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl619_2
 --
 
 ALTER SEQUENCE public.books_id_seq OWNED BY public.books.id;
 
 
 --
--- Name: authors id; Type: DEFAULT; Schema: public; Owner: bill
+-- Name: books_in_booklist; Type: TABLE; Schema: public; Owner: tpl619_2
+--
+
+CREATE TABLE public.books_in_booklist (
+    id integer NOT NULL,
+    booklist_id integer NOT NULL,
+    book_id integer NOT NULL,
+    added_at timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.books_in_booklist OWNER TO tpl619_2;
+
+--
+-- Name: books_in_booklist_id_seq; Type: SEQUENCE; Schema: public; Owner: tpl619_2
+--
+
+CREATE SEQUENCE public.books_in_booklist_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.books_in_booklist_id_seq OWNER TO tpl619_2;
+
+--
+-- Name: books_in_booklist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tpl619_2
+--
+
+ALTER SEQUENCE public.books_in_booklist_id_seq OWNED BY public.books_in_booklist.id;
+
+
+--
+-- Name: authors id; Type: DEFAULT; Schema: public; Owner: tpl619_2
 --
 
 ALTER TABLE ONLY public.authors ALTER COLUMN id SET DEFAULT nextval('public.authors_id_seq'::regclass);
 
 
 --
--- Name: books id; Type: DEFAULT; Schema: public; Owner: bill
+-- Name: booklist id; Type: DEFAULT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.booklist ALTER COLUMN id SET DEFAULT nextval('public.booklist_id_seq'::regclass);
+
+
+--
+-- Name: books id; Type: DEFAULT; Schema: public; Owner: tpl619_2
 --
 
 ALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_id_seq'::regclass);
 
 
 --
--- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: bill
+-- Name: books_in_booklist id; Type: DEFAULT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.books_in_booklist ALTER COLUMN id SET DEFAULT nextval('public.books_in_booklist_id_seq'::regclass);
+
+
+--
+-- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: tpl619_2
 --
 
 COPY public.authors (id, name, date_of_death, homepage, headshot_url, date_of_birth) FROM stdin;
@@ -126,7 +213,18 @@ COPY public.authors (id, name, date_of_death, homepage, headshot_url, date_of_bi
 
 
 --
--- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: bill
+-- Data for Name: booklist; Type: TABLE DATA; Schema: public; Owner: tpl619_2
+--
+
+COPY public.booklist (id, list_name, created_on, description, name_of_creator) FROM stdin;
+1	Lisa's List	2020-03-26 09:48:49.403586	To read during shelter in place	Lisa
+3	P. Robinson Books	2020-03-27 09:27:21.995501	Books by Phoebe Robinson	Lisa
+2	Weekend Reading List	2020-03-26 10:15:13.108976	\N	Lisa
+\.
+
+
+--
+-- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: tpl619_2
 --
 
 COPY public.books (id, title, publication_date, author_id, cover_image_url, summary, subtitle) FROM stdin;
@@ -143,21 +241,51 @@ COPY public.books (id, title, publication_date, author_id, cover_image_url, summ
 
 
 --
--- Name: authors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bill
+-- Data for Name: books_in_booklist; Type: TABLE DATA; Schema: public; Owner: tpl619_2
+--
+
+COPY public.books_in_booklist (id, booklist_id, book_id, added_at) FROM stdin;
+1	1	4	2020-03-26 09:49:15.268965
+2	1	5	2020-03-26 09:49:15.268965
+3	1	6	2020-03-26 10:11:14.972765
+4	2	5	2020-03-26 10:15:52.505697
+5	2	8	2020-03-26 10:15:52.505697
+6	2	7	2020-03-27 09:16:08.805037
+8	3	7	2020-03-27 09:27:54.188792
+9	3	3	2020-03-27 09:27:54.188792
+\.
+
+
+--
+-- Name: authors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl619_2
 --
 
 SELECT pg_catalog.setval('public.authors_id_seq', 7, true);
 
 
 --
--- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: bill
+-- Name: booklist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl619_2
+--
+
+SELECT pg_catalog.setval('public.booklist_id_seq', 3, true);
+
+
+--
+-- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl619_2
 --
 
 SELECT pg_catalog.setval('public.books_id_seq', 9, true);
 
 
 --
--- Name: authors authors_pkey; Type: CONSTRAINT; Schema: public; Owner: bill
+-- Name: books_in_booklist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tpl619_2
+--
+
+SELECT pg_catalog.setval('public.books_in_booklist_id_seq', 9, true);
+
+
+--
+-- Name: authors authors_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl619_2
 --
 
 ALTER TABLE ONLY public.authors
@@ -165,7 +293,31 @@ ALTER TABLE ONLY public.authors
 
 
 --
--- Name: books books_pkey; Type: CONSTRAINT; Schema: public; Owner: bill
+-- Name: booklist booklist_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.booklist
+    ADD CONSTRAINT booklist_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: books_in_booklist books_in_booklist_book_id_booklist_id_key; Type: CONSTRAINT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.books_in_booklist
+    ADD CONSTRAINT books_in_booklist_book_id_booklist_id_key UNIQUE (book_id, booklist_id);
+
+
+--
+-- Name: books_in_booklist books_in_booklist_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.books_in_booklist
+    ADD CONSTRAINT books_in_booklist_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: books books_pkey; Type: CONSTRAINT; Schema: public; Owner: tpl619_2
 --
 
 ALTER TABLE ONLY public.books
@@ -173,11 +325,27 @@ ALTER TABLE ONLY public.books
 
 
 --
--- Name: books books_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bill
+-- Name: books books_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tpl619_2
 --
 
 ALTER TABLE ONLY public.books
     ADD CONSTRAINT books_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.authors(id);
+
+
+--
+-- Name: books_in_booklist books_in_booklist_book_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.books_in_booklist
+    ADD CONSTRAINT books_in_booklist_book_id_fkey FOREIGN KEY (book_id) REFERENCES public.books(id) ON DELETE CASCADE;
+
+
+--
+-- Name: books_in_booklist books_in_booklist_booklist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tpl619_2
+--
+
+ALTER TABLE ONLY public.books_in_booklist
+    ADD CONSTRAINT books_in_booklist_booklist_id_fkey FOREIGN KEY (booklist_id) REFERENCES public.booklist(id) ON DELETE CASCADE;
 
 
 --

@@ -2,7 +2,7 @@
 
 Booktonica is a full-stack app displaying collection of books from [Techtonica's curriculum](https://github.com/Techtonica/final-full-stack-assessment-h1-2020).  Users can view books as well as books from a specfic list.
 
-<img src="/Users/tpl619_2/Desktop/final-full-stack-assessment-h1-2020/assets/booktonica-preview.gif" alt="booktonica-preview" style="zoom:40%;" />
+<img src="assets/booktonica-preview.gif" alt="booktonica-preview" style="zoom:40%;" />
 
 
 
@@ -12,7 +12,7 @@ Booktonica is a full-stack app displaying collection of books from [Techtonica's
 
 The [Features/Requirements](https://github.com/lisaau/Booktonica/wiki/Features-Requirements) to let users create curated lists of books was completed in a day. This includes understanding a new codebase, modeling the data, and implementation of the feature.
 
-![viewing-booklists](/Users/tpl619_2/Desktop/final-full-stack-assessment-h1-2020/assets/viewing-booklists.gif)
+![viewing-booklists](assets/viewing-booklists.gif)
 
 
 

@@ -30,7 +30,7 @@ class BooktonicaDatabase {
   }
 
   // ordered by id of book
-  getAllBooks() {
+  getAllBooks(extraClauses = "", args) {
     return this.db.any(
       `SELECT 
         b.id,
@@ -41,7 +41,9 @@ class BooktonicaDatabase {
         to_char(b.publication_date, 'DD Mon YYYY') as publication_date, 
         a.name AS author_name FROM books b 
         INNER JOIN authors a on a.id = b.author_id
-        ORDER BY b.id`
+        ` +
+        extraClauses +
+        `ORDER BY b.id`, args
     );
   }
 
@@ -58,20 +60,9 @@ class BooktonicaDatabase {
   }
 
   getBooksFromBooklist(booklistID) {
-    return this.db.any(
-      `SELECT 
-        b.id,
-        b.title,
-        b.subtitle,
-        b.summary,
-        b.cover_image_url,
-        to_char(b.publication_date, 'DD Mon YYYY') as publication_date, 
-        a.name AS author_name FROM books b 
-        INNER JOIN authors a on a.id = b.author_id
-        INNER JOIN books_in_booklist bib ON bib.book_id = b.id
-        WHERE bib.booklist_id = $1
-        ORDER BY b.id`, booklistID
-    );
+    let extraClauses =  `INNER JOIN books_in_booklist bib ON bib.book_id = b.id
+    WHERE bib.booklist_id = $1`
+    return this.getAllBooks(extraClauses, booklistID);
   }
 }
 

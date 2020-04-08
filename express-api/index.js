@@ -40,18 +40,10 @@ api.get('/books', (_unused, res) =>
   db.getAllBooks().then(books => res.send(books))
 );
 
-// GET /booklist
-// takes bookID from body and returns a list of all the booklists the book is in
-api.get('/booklists', (req, res) => {
-  let bookID = parseInt(req.query.bookID);
-  db.getBookListsofBook(bookID).then(booklists => res.send(booklists))
-});
-
-// GET /booklist/books
+// GET /books/for-booklist/:booklistID
 // takes booklistID from body and returns all the books that are in that booklist
-api.get('/booklist/books', (req, res, next) => {
-  let booklistID = parseInt(req.query.booklistID);
-  console.log(req.query);
+api.get('/books/forBooklist/:booklistID', (req, res, next) => {
+  let booklistID = parseInt(req.params.booklistID);
   
   db.getBooksFromBooklist(booklistID).then(books => res.send(books)).catch(next)
 });

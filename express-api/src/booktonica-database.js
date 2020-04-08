@@ -30,8 +30,9 @@ class BooktonicaDatabase {
   }
 
   // ordered by id of book
-  getAllBooks(extraClauses = "", args) {
-    return this.db.any(
+  // gets all books by default but can be limited (eg. to show books from a particular list)
+  async getAllBooks(extraClauses = "", args) {
+    let books = await this.db.any(
       `SELECT 
         b.id,
         b.title,
@@ -45,24 +46,46 @@ class BooktonicaDatabase {
         extraClauses +
         `ORDER BY b.id`, args
     );
-  }
+    let booklists = await this.getAllBooklists();
 
-  getBookListsofBook(bookID) {
-    return this.db.any(
-      `SELECT 
-      bl.id,
-    	bl.list_name
-    	FROM booklist bl
-    		JOIN books_in_booklist bib ON bl.id = bib.booklist_id
-    		JOIN books b ON bib.book_id = b.id
-    	WHERE b.id = $1`, bookID
-    );
+    // temporary storage to house arrays of all books (including books that aren't in any list)
+    let tempBooklist = {}
+
+    // create an empty array for each book (determines whether badge should appear in bookCard)
+    books.forEach(book => tempBooklist[book.id] = []);
+
+    // add booklist entry into temp storage booklist key
+    booklists.forEach(entry => {
+      // if there was a WHERE clause for getAllBooks(), then getAllBooklists would have too much data so skip entries for books we don't have
+      if (tempBooklist[entry.book_id]) {
+        tempBooklist[entry.book_id].push({list_id: entry.list_id, list_name: entry.list_name})
+      }
+    })
+
+    // modify books to add booklist
+    books.forEach(book => {
+      book.booklists = tempBooklist[book.id]
+    });
+    return books;
   }
 
   getBooksFromBooklist(booklistID) {
     let extraClauses =  `INNER JOIN books_in_booklist bib ON bib.book_id = b.id
     WHERE bib.booklist_id = $1`
     return this.getAllBooks(extraClauses, booklistID);
+  }
+
+  getAllBooklists() {
+    return this.db.any(
+      `SELECT
+      b.id AS book_id,
+      bl.id AS list_id,
+      bl.list_name
+      FROM books b
+      INNER JOIN books_in_booklist bib ON bib.book_id = b.id
+      INNER JOIN booklist bl ON bl.id = bib.booklist_id
+      ORDER BY b.id`
+    )
   }
 }
 

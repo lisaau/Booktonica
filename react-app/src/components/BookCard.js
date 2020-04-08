@@ -22,7 +22,8 @@ class BookCard extends Component {
       title,
       author_name,
       publication_date,
-      id
+      id,
+      booklists
     } = this.props.book;
     
     return (
@@ -41,6 +42,7 @@ class BookCard extends Component {
               displayList={() => this.props.displayList()}
               updateCurrentBooklistName={this.props.updateCurrentBooklistName}
               updateBooks={this.props.updateBooks}
+              booklists={booklists}
               />
             <CardText>
               <i>{publication_date}</i> - {summary}

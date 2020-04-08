@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import {
-    Badge,
-  } from "reactstrap";
+import { Badge } from "reactstrap";
 
- class BookListBadges extends Component {
-
+class BookListBadges extends Component {
     render() { 
         let buttonMapper = 
-            this.props.booklists.map(booklist => {
+            this.props.booklists.filter(booklist =>
+                booklist.list_id !== this.props.currentBooklistID
+            ).map(booklist => {
                 return <Badge 
                         color="primary" 
                         pill
@@ -15,18 +14,13 @@ import {
                         onClick={(event) => {
                             event.preventDefault();
                             this.props.displayList();
-                            this.props.updateCurrentBooklistName(booklist.list_name);
-                            this.props.updateBooks(booklist.list_id);
+                            this.props.updateCurrentBooklist(booklist);
                         }}>
                             {booklist.list_name}</Badge>
             })
             
-        return (
-            <div>
-                {buttonMapper} 
-            </div>
-        )
+        return <div>{buttonMapper}</div>
     }
- }
+}
 
 export default BookListBadges;

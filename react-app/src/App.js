@@ -11,7 +11,8 @@ class App extends Component {
     this.state = {
       books: [],
       listView: false,
-      currentBooklistName: ''
+      currentBooklistName: '',
+      currentBooklistID: undefined
     };
   }
 
@@ -31,12 +32,27 @@ class App extends Component {
         <SeeAllBooksButton 
           displayListView={this.state.listView} 
           displayAll={() => this.setState({listView: false})} 
-          updateBooks={() => getAllBooks().then(books => this.setState({ books: books }))}/>
+          updateBooks={() => getAllBooks().then(books =>
+            this.setState({
+              books: books,
+              currentBooklistName: '',
+              currentBooklistID: undefined
+            })
+          )}
+        />
         <BookCardList 
           books={this.state.books} 
           displayList={() => this.setState({listView: true})} 
-          updateCurrentBooklistName={(booklistName) => this.setState({currentBooklistName: booklistName})} 
-          updateBooks={(booklistID) => getBooksFromBooklist(booklistID).then(books => this.setState({books:books}))}/>
+          updateCurrentBooklist={(booklist) => {
+            getBooksFromBooklist(booklist.list_id).then(books =>
+              this.setState({
+                books: books,
+                currentBooklistName: booklist.list_name,
+                currentBooklistID: booklist.list_id
+              }))
+          }}
+          currentBooklistID={this.state.currentBooklistID}
+          />
       </div>
     );
   }

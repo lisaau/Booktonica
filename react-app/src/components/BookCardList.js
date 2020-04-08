@@ -11,8 +11,8 @@ class BookCardList extends Component {
             key={book.id} 
             book={book} 
             displayList={() => this.props.displayList()}
-            updateCurrentBooklistName={this.props.updateCurrentBooklistName}
-            updateBooks={this.props.updateBooks}
+            updateCurrentBooklist={this.props.updateCurrentBooklist}
+            currentBooklistID={this.props.currentBooklistID}
             />
         ))}
       </Row>

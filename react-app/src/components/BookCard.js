@@ -40,9 +40,9 @@ class BookCard extends Component {
             <BookListBadges 
               bookID={id} 
               displayList={() => this.props.displayList()}
-              updateCurrentBooklistName={this.props.updateCurrentBooklistName}
-              updateBooks={this.props.updateBooks}
+              updateCurrentBooklist={this.props.updateCurrentBooklist}
               booklists={booklists}
+              currentBooklistID={this.props.currentBooklistID}
               />
             <CardText>
               <i>{publication_date}</i> - {summary}

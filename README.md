@@ -2,6 +2,10 @@
 
 Booktonica is a full-stack app displaying collection of books from [Techtonica's curriculum](https://github.com/Techtonica/final-full-stack-assessment-h1-2020).  Users can view books as well as books from a specfic list.
 
+View Booktonica here: https://booktonica-react-app.herokuapp.com/
+
+
+
 <img src="assets/booktonica-preview.gif" alt="booktonica-preview" style="zoom:40%;" />
 
 
@@ -56,6 +60,3 @@ A join table was used as multiple books can be in a list and a list can have mul
 
 - Login section to allow multiple users to save books
 - Adding more books in the UI
-
-
-
